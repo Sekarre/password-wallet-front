@@ -1,0 +1,88 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-12">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <div class=" row">
+            <div class=" col-sm-6 text-left">
+              <h2 class=" card-title">Stored passwords</h2>
+              <h5 class=" card-title">Total: todo: 5</h5>
+            </div>
+            <div class=" col-sm-6">
+            </div>
+          </div>
+        </div>
+        <div class=" card-body">
+          <div *ngFor="let password of passwordList"  class="card card-user col-12">
+            <div>
+              <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                <label class=" btn btn-sm  btn-simple" (click)="data=datasets[1];updateOptions();clicked=false;clicked1=true;clicked2=false" [ngClass]="{'active':clicked1===true}">
+                  <input class=" d-none d-sm-none" name="options" type="radio"/>
+                  <h5 class=" card-title">
+                    <i class=" tim-icons icon-support-17">  Show</i>
+                  </h5>
+                </label>
+                <label class=" btn btn-sm btn-simple" (click)="data=datasets[1];updateOptions();clicked=false;clicked1=true;clicked2=false" [ngClass]="{'active':clicked1===true}">
+                  <input class=" d-none d-sm-none" name="options" type="radio"/>
+                  <h5 class=" card-title">
+                    <i class=" tim-icons icon-pencil text-info-states">  Edit </i>
+                  </h5>
+                </label>
+                <label class=" btn btn-sm  btn-simple" (click)="data=datasets[1];updateOptions();clicked=false;clicked1=true;clicked2=false" [ngClass]="{'active':clicked1===true}">
+                  <input class=" d-none d-sm-none" name="options" type="radio"/>
+                  <h5 class=" card-title">
+                    <i class=" tim-icons  icon-trash-simple">  Delete </i>
+                  </h5>
+                </label>
+              </div>
+            </div>
+            <div  class=" card-body">
+              <p class=" card-text"></p>
+              <div class=" author">
+                <div class=" block block-one"></div>
+                <div class=" block block-two"></div>
+                </div>
+                <h5 class="d-flex justify-content-center title">{{ password.title }}</h5>
+                <div class="d-flex justify-content-center row">
+                  <div class=" col-md-5 pr-md-1">
+                    <div class="form-group">
+                      <label> Login </label>
+                      <input
+                        class=" form-control"
+                        disabled=""
+                        placeholder="Login"
+                        type="text"
+                        value="{{ password.login }}"
+                      />
+                    </div>
+                  </div>
+                  <div class=" col-md-5 pr-md-1">
+                    <div class=" form-group">
+                      <label> Password </label>
+                      <input
+                        class=" form-control"
+                        disabled=""
+                        placeholder="Password"
+                        type="password"
+                        value="{{ password.password }}"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center card-description">
+                  <p class=" category">
+                    Corresponding URL address:
+                    <a href="{{ password.webAddress }}">{{ password.webAddress }}</a>
+                  </p>
+                </div>
+                <div class="d-flex justify-content-center card-description">
+                  {{ password.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
