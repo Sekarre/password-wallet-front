@@ -14,6 +14,6 @@ export class UserService {
   }
 
   getUserData(): Observable<User> {
-    return this.http.get<User>(this.userDataUrl);
+    return this.http.get<User>(this.userDataUrl)
   }
 }

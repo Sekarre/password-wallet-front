@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PasswordService} from '../../services/password.service';
 import {User} from '../../domain/User';
 import {UserService} from '../../services/user.service';
 import {PasswordType} from '../../domain/PasswordType';
-import {tap} from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -25,25 +23,25 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeForm();
+
     this.passwordService.getPasswordTypes().subscribe(data => {
       this.passwordTypes = data;
     });
 
     this.userService.getUserData().subscribe(data => {
       this.user = data;
-      this.initializeForm();
-
     });
   }
 
   initializeForm() {
     this.userPasswordFormGroup = this.formBuilder.group({
       userDetails: this.formBuilder.group({
-        currentLogin: new FormControl(this.user.login,
+        currentLogin: new FormControl('',
           [Validators.required, Validators.minLength(2)]),
-        currentPassword: new FormControl(this.user.password,
+        currentPassword: new FormControl('',
           [Validators.required, Validators.minLength(2)]),
-        currentPasswordType: new FormControl(this.user.passwordType,
+        currentPasswordType: new FormControl('',
           [Validators.required, Validators.minLength(2)])
       })
     });

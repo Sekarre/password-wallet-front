@@ -8,6 +8,7 @@ export class AuthService {
 
   authUrl = 'http://localhost:8080/api/auth';
   registerUrl = 'http://localhost:8080/api/auth/new-account';
+  setupKeyUrl = 'http://localhost:8080/api/auth/key';
 
   constructor(private http: HttpClient) {
   }
@@ -23,6 +24,7 @@ export class AuthService {
 
   logout() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('key');
   }
 
   getToken(): string {
@@ -33,8 +35,20 @@ export class AuthService {
     sessionStorage.setItem('token', token);
   }
 
+  setPasswordKeyStorage() {
+    sessionStorage.setItem('key', 'true');
+  }
+
+  getPasswordKeyStorage(): string {
+    return sessionStorage.getItem('key');
+  }
+
   register(login: string, password: string, passwordType: string): Observable<any> {
     return this.http.post<TokenResponse>(this.registerUrl, {login, password, passwordType});
+  }
+
+  setPasswordKey(passwordKey: string): Observable<any> {
+    return this.http.post<TokenResponse>(this.setupKeyUrl, {passwordKey});
   }
 }
 

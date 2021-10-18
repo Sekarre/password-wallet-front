@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
 
   loginFormGroup: FormGroup;
   passwordTypes: PasswordType[] = [];
+  selected: string;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -24,6 +25,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.passwordService.getPasswordTypes().subscribe(data => {
       this.passwordTypes = data;
+
+      if (data.length !== 0) {
+        this.selected = data[0].name;
+      }
     });
 
     this.loginFormGroup = this.formBuilder.group({

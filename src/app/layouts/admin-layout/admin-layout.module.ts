@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { UserComponent } from '../../pages/user/user.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         HttpClientModule,
         NgbModule,
         ReactiveFormsModule,
+        ComponentsModule,
     ],
   declarations: [
     DashboardComponent,

@@ -29,4 +29,10 @@ export class PasswordService {
   getPasswordTypes(): Observable<PasswordType[]> {
     return this.http.get<PasswordType[]>(this.passwordTypesUrl)
   }
+
+  getPassword(passwordId: number) {
+    const url = this.baseURL + '/' + passwordId;
+
+    return this.http.get<Password>(url)
+  }
 }
