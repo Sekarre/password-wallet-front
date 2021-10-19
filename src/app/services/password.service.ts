@@ -35,4 +35,10 @@ export class PasswordService {
 
     return this.http.get<Password>(url)
   }
+
+  deletePassword(passwordId: number) {
+    const url = this.baseURL + '/' + passwordId;
+
+    return this.http.delete(url);
+  }
 }

@@ -4,6 +4,9 @@ import {PasswordService} from '../../services/password.service';
 import {User} from '../../domain/User';
 import {UserService} from '../../services/user.service';
 import {PasswordType} from '../../domain/PasswordType';
+import {PasswordChangeDto} from '../../domain/dto/PasswordChangeDto';
+import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -18,8 +21,9 @@ export class UserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private passwordService: PasswordService) {
-
+    private passwordService: PasswordService,
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -37,19 +41,37 @@ export class UserComponent implements OnInit {
   initializeForm() {
     this.userPasswordFormGroup = this.formBuilder.group({
       userDetails: this.formBuilder.group({
-        currentLogin: new FormControl('',
+        login: new FormControl('',
           [Validators.required, Validators.minLength(2)]),
         currentPassword: new FormControl('',
           [Validators.required, Validators.minLength(2)]),
-        currentPasswordType: new FormControl('',
+        newPassword: new FormControl('',
+          [Validators.required, Validators.minLength(2)]),
+        passwordType: new FormControl('',
           [Validators.required, Validators.minLength(2)])
       })
     });
   }
 
   changePassword() {
-    console.log(this.userPasswordFormGroup.get('userDetails').get('currentLogin').value)
-    console.log(this.userPasswordFormGroup.get('userDetails').get('currentPassword').value)
-    console.log(this.userPasswordFormGroup.get('userDetails').get('currentPasswordType').value);
+    this.userService.changePassword(this.createPasswordChangeDto()).subscribe({
+        next: response => {
+          this.authService.setToken(response.token);
+          this.router.navigateByUrl('/dashboard');
+        },
+        error: err => {
+          alert(`Invalid data given`);
+        }
+      }
+    );
+  }
+
+  private createPasswordChangeDto(): PasswordChangeDto {
+    const passwordChangeDto = new PasswordChangeDto();
+    passwordChangeDto.currentPassword = this.userPasswordFormGroup.get('userDetails').get('currentPassword').value;
+    passwordChangeDto.newPassword = this.userPasswordFormGroup.get('userDetails').get('newPassword').value;
+    passwordChangeDto.passwordType = this.userPasswordFormGroup.get('userDetails').get('passwordType').value;
+
+    return passwordChangeDto;
   }
 }
