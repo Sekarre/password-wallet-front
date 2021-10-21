@@ -3,6 +3,7 @@ import {Password} from '../../domain/Password';
 import {PasswordService} from '../../services/password.service';
 import {ControlHelperService} from '../../services/control-helper.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.passwordService.getPasswords().subscribe(data => this.passwordList = data);
+    this.passwordService.getPasswords().subscribe(data2 => this.passwordList = data2);
   }
 
   showPassword(passwordId: number) {

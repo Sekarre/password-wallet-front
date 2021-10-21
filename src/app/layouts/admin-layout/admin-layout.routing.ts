@@ -12,7 +12,7 @@ import {KeySetComponent} from '../../components/key-set/key-set.component';
 import {PasswordEditComponent} from '../../components/password-edit/password-edit.component';
 
 export const AdminLayoutRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, KeySetGuard] },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

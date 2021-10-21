@@ -11,6 +11,7 @@ export class PasswordService {
 
   baseURL = 'http://localhost:8080/api/password-wallet';
   passwordTypesUrl = 'http://localhost:8080/api/password-wallet/password-types';
+  passwordKeyUrl = 'http://localhost:8080/api/password-wallet/password-key-verification';
 
   constructor(private http: HttpClient) {
   }
@@ -42,12 +43,17 @@ export class PasswordService {
   getPassword(passwordId: number) {
     const url = this.baseURL + '/' + passwordId;
 
-    return this.http.get<Password>(url)
+    return this.http.get<Password>(url);
   }
 
   deletePassword(passwordId: number) {
     const url = this.baseURL + '/' + passwordId;
 
     return this.http.delete(url);
+  }
+
+  checkIfKeyValid(key) {
+    const headers = {'content-type': 'application/json'}
+    return this.http.post(this.passwordKeyUrl, key, {headers});
   }
 }

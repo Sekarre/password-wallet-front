@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../services/alert.service';
+import {PasswordService} from '../../services/password.service';
 
 @Component({
   selector: 'app-key-set',
@@ -13,8 +15,10 @@ export class KeySetComponent implements OnInit {
   setupPasswordKeyFormGroup: FormGroup;
 
   constructor(private authService: AuthService,
+              private passwordService: PasswordService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -27,14 +31,21 @@ export class KeySetComponent implements OnInit {
   }
 
   setupPasswordKey() {
-    this.authService.setPasswordKey(this.setupPasswordKeyFormGroup.get('keySet').get('passwordKey').value)
-      .subscribe(
-        response => {
-          this.authService.setPasswordKeyStorage();
-          this.authService.setToken(response.token);
-          this.router.navigateByUrl('/dashboard');
-        }
-      );
+    const key: string = this.setupPasswordKeyFormGroup.get('keySet').get('passwordKey').value;
+    this.passwordService.checkIfKeyValid(key).subscribe(() => {
+        this.authService.setPasswordKey(key).subscribe(
+          response => {
+            this.authService.setPasswordKeyStorage();
+            this.authService.setToken(response.token);
+            this.router.navigateByUrl('/dashboard');
+          }, error => {
+            this.alertService.error('Error');
+          })
+      },
+      error => {
+        this.alertService.error('Key is not valid. Try again');
+      }
+    );
   }
 
   logout() {

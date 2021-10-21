@@ -7,6 +7,7 @@ import {PasswordType} from '../../domain/PasswordType';
 import {PasswordChangeDto} from '../../domain/dto/PasswordChangeDto';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-user',
@@ -23,7 +24,8 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private passwordService: PasswordService,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -60,7 +62,7 @@ export class UserComponent implements OnInit {
           this.router.navigateByUrl('/dashboard');
         },
         error: err => {
-          alert(`Invalid data given`);
+          this.alertService.error(`Current password is not valid`);
         }
       }
     );

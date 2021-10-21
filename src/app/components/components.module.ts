@@ -11,12 +11,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
 import {PasswordAddComponent} from './password-add/password-add.component';
 import {KeySetComponent} from './key-set/key-set.component';
-import { PasswordEditComponent } from './password-edit/password-edit.component';
+import {PasswordEditComponent} from './password-edit/password-edit.component';
+import {AlertComponent} from './alert/alert.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule],
-  declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent, PasswordAddComponent, KeySetComponent, PasswordEditComponent],
-  exports: [FooterComponent, NavbarComponent, SidebarComponent]
+  declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent, PasswordAddComponent,
+    KeySetComponent, PasswordEditComponent, AlertComponent],
+    exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent]
 })
 export class ComponentsModule {
 }

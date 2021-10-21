@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -29,13 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.loginFormGroup.get('user')?.value);
-
+    // console.log(this.loginFormGroup.get('user')?.value);
     this.authService.login(this.loginFormGroup.get('user').get('login').value, this.loginFormGroup.get('user').get('password').value)
       .subscribe(
         response => {
           this.authService.setToken(response.token);
           this.router.navigateByUrl('/dashboard');
+        },
+        error => {
+          this.alertService.error('Bad credentials');
         }
       );
   }
