@@ -18,19 +18,16 @@
             <div>
               <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
                 <label class=" btn btn-sm  btn-simple" (click)="showPassword(password.id)">
-                  <input class="d-none d-sm-none" name="options" type="radio"/>
                   <h5 class=" card-title">
                     <i class=" tim-icons icon-support-17">  Show</i>
                   </h5>
                 </label>
-                <label class="btn btn-sm btn-simple"  >
-                  <input class=" d-none d-sm-none" name="options" type="radio"/>
+                <label class="btn btn-sm btn-simple" [routerLink]="['/password-edit', password.id]" >
                   <h5 class=" card-title">
                     <i class="tim-icons icon-pencil text-info-states">  Edit </i>
                   </h5>
                 </label>
                 <label class="btn btn-sm  btn-simple" (click)="deletePassword(password.id)" >
-                  <input class=" d-none d-sm-none" name="options" type="radio"/>
                   <h5 class=" card-title">
                     <i class=" tim-icons  icon-trash-simple">  Delete </i>
                   </h5>

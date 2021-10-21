@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   public clicked = true;
 
   passwordList: Password[] = [];
+  fakePassword = '*******';
 
   constructor(private passwordService: PasswordService,
               private controlHelperService: ControlHelperService,
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit {
     if (this.controlHelperService.isKeyPasswordSet()) {
       this.passwordService.getPassword(passwordId).subscribe(data => {
         const password = this.passwordList.find(p => p.id === data.id)
-        password.password = data.password;
+        this.setFrontPassword(password, data);
       });
     }
   }
@@ -35,7 +36,25 @@ export class DashboardComponent implements OnInit {
   deletePassword(passwordId: number) {
     if (this.controlHelperService.isKeyPasswordSet()) {
       this.passwordService.deletePassword(passwordId).subscribe();
+      this.removePasswordFromList(passwordId);
       this.router.navigateByUrl('/dashboard');
+    }
+  }
+
+  private setFrontPassword(password: Password, data: Password) {
+    if (!password.passwordVisible) {
+      password.password = data.password;
+    } else {
+      password.password = this.fakePassword;
+    }
+
+    password.passwordVisible = !password.passwordVisible;
+  }
+
+  private removePasswordFromList(passwordId: number) {
+    const index = this.passwordList.indexOf(this.passwordList.find(p => p.id === passwordId));
+    if (index !== -1) {
+      this.passwordList.splice(index, 1);
     }
   }
 }

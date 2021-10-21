@@ -26,6 +26,15 @@ export class PasswordService {
     return this.http.post(this.baseURL, body, {headers})
   }
 
+  editPassword(password: Password): Observable<any> {
+    const headers = {'content-type': 'application/json'}
+    const body = JSON.stringify(password);
+    const url = this.baseURL + '/' + password.id;
+
+    console.log(body)
+    return this.http.put(url, body, {headers})
+  }
+
   getPasswordTypes(): Observable<PasswordType[]> {
     return this.http.get<PasswordType[]>(this.passwordTypesUrl)
   }

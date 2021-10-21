@@ -9,6 +9,7 @@ import {RegisterComponent} from '../../components/register/register.component';
 import {PasswordAddComponent} from '../../components/password-add/password-add.component';
 import {KeySetGuard} from '../../services/KeySetGuard';
 import {KeySetComponent} from '../../components/key-set/key-set.component';
+import {PasswordEditComponent} from '../../components/password-edit/password-edit.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -17,5 +18,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'password-add', component: PasswordAddComponent, canActivate: [AuthGuard, KeySetGuard] },
+  { path: 'password-edit/:id', component: PasswordEditComponent, canActivate: [AuthGuard, KeySetGuard] },
   { path: 'key-set', component: KeySetComponent, canActivate: [AuthGuard] }
 ];

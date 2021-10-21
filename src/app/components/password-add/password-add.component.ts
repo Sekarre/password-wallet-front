@@ -28,10 +28,8 @@ export class PasswordAddComponent implements OnInit {
           [Validators.required, Validators.minLength(2)]),
         title: new FormControl('',
           [Validators.required, Validators.minLength(2)]),
-        webAddress: new FormControl('',
-          [Validators.required, Validators.minLength(2)]),
-        description: new FormControl('',
-          [Validators.required, Validators.minLength(2)])
+        webAddress: new FormControl(''),
+        description: new FormControl('')
       })
     });
   }

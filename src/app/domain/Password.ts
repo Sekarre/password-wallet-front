@@ -5,4 +5,5 @@ export class Password {
   public password: string;
   public webAddress: string;
   public description: string;
+  public passwordVisible = false;
 }
