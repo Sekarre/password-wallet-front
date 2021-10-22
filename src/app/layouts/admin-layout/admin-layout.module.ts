@@ -6,7 +6,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UserComponent } from '../../pages/user/user.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,8 +23,7 @@ import {ComponentsModule} from '../../components/components.module';
     ],
   declarations: [
     DashboardComponent,
-    UserComponent,
-    NotificationsComponent
+    UserComponent
   ]
 })
 export class AdminLayoutModule {}

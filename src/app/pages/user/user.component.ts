@@ -62,7 +62,7 @@ export class UserComponent implements OnInit {
           this.router.navigateByUrl('/dashboard');
         },
         error: err => {
-          this.alertService.error(`Current password is not valid`);
+          this.alertService.error(`Form is not valid`);
         }
       }
     );

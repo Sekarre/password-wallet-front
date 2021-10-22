@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UserComponent } from '../../pages/user/user.component';
 import {LoginComponent} from '../../components/login/login.component';
 import {AuthGuard} from '../../services/AuthGuard';
@@ -13,7 +12,6 @@ import {PasswordEditComponent} from '../../components/password-edit/password-edi
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, KeySetGuard] },
-  { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

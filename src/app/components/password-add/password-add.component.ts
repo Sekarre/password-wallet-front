@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {PasswordService} from '../../services/password.service';
 import {Router} from '@angular/router';
 import {Password} from '../../domain/Password';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-password-add',
@@ -16,7 +17,8 @@ export class PasswordAddComponent implements OnInit {
 
   constructor(private passwordService: PasswordService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +45,8 @@ export class PasswordAddComponent implements OnInit {
       .subscribe(
         () => {
           this.router.navigateByUrl('/dashboard');
+        }, () => {
+          this.alertService.error('Title, login and password must be set');
         }
       );
   }

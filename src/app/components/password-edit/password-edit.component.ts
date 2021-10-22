@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PasswordService} from '../../services/password.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Password} from '../../domain/Password';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-password-edit',
@@ -18,7 +19,8 @@ export class PasswordEditComponent implements OnInit {
   constructor(private passwordService: PasswordService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -28,7 +30,8 @@ export class PasswordEditComponent implements OnInit {
       this.passwordService.getPassword(Number(params.get('id'))).subscribe(
         data => {
           this.passwordToEdit = data
-
+        }, () => {
+          this.alertService.error('Error');
         }
       );
       this.initializeForm();
@@ -58,6 +61,8 @@ export class PasswordEditComponent implements OnInit {
       .subscribe(
         () => {
           this.router.navigateByUrl('/dashboard');
+        }, () => {
+          this.alertService.error('Title, login and password must be set');
         }
       );
   }
