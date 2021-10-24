@@ -43,6 +43,10 @@ export class AuthService {
     return sessionStorage.getItem('key');
   }
 
+  flushPasswordKeyStorage(): void {
+    return sessionStorage.removeItem('key');
+  }
+
   register(login: string, password: string, passwordType: string): Observable<any> {
     return this.http.post<TokenResponse>(this.registerUrl, {login, password, passwordType});
   }

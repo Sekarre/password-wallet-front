@@ -13,6 +13,7 @@ import {PasswordService} from '../../services/password.service';
 export class KeySetComponent implements OnInit {
 
   setupPasswordKeyFormGroup: FormGroup;
+  fieldTextType: boolean;
 
   constructor(private authService: AuthService,
               private passwordService: PasswordService,
@@ -50,5 +51,9 @@ export class KeySetComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

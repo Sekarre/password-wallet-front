@@ -14,6 +14,7 @@ import {AlertService} from '../../services/alert.service';
 export class PasswordAddComponent implements OnInit {
 
   passwordAddFormGroup: FormGroup;
+  fieldTextType: boolean;
 
   constructor(private passwordService: PasswordService,
               private formBuilder: FormBuilder,
@@ -62,4 +63,7 @@ export class PasswordAddComponent implements OnInit {
     return password;
   }
 
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 }

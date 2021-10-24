@@ -18,6 +18,8 @@ export class UserComponent implements OnInit {
   user: User = new User();
   userPasswordFormGroup: FormGroup;
   passwordTypes: PasswordType[] = [];
+  fieldTextType: boolean;
+  fieldTextType2: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +61,7 @@ export class UserComponent implements OnInit {
     this.userService.changePassword(this.createPasswordChangeDto()).subscribe({
         next: response => {
           this.authService.setToken(response.token);
+          this.authService.flushPasswordKeyStorage();
           this.router.navigateByUrl('/dashboard');
         },
         error: err => {
@@ -66,6 +69,14 @@ export class UserComponent implements OnInit {
         }
       }
     );
+  }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+
+  toggleFieldTextType2() {
+    this.fieldTextType2 = !this.fieldTextType2;
   }
 
   private createPasswordChangeDto(): PasswordChangeDto {

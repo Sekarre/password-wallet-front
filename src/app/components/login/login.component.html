@@ -33,7 +33,14 @@
                   <div class=" col-md-5 pr-md-1">
                     <div class=" form-group">
                       <label> Password </label>
-                      <input class=" form-control" placeholder="Password" type="password" formControlName="password"/>
+                      <div class="input-group ">
+                      <input class=" form-control" placeholder="Password" required [type]="fieldTextType ? 'text' : 'password'" formControlName="password"/>
+                        <div class="input-group-append ">
+                               <span class="input-group-text" style="background-color: transparent;">
+                                  <i class="fa" style="padding-left: 8px" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                               </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

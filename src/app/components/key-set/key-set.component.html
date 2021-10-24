@@ -20,12 +20,19 @@
                   <div class=" block block-one"></div>
                   <div class=" block block-two"></div>
                 </div>
-                <h2 class="d-flex justify-content-center title">Key setup</h2>
+                <h2 class="d-flex justify-content-center title">Insert master password</h2>
                 <div class="d-flex justify-content-center row">
                   <div class=" col-md-5 pr-md-1">
                     <div class=" form-group">
                       <label> Password </label>
-                      <input class=" form-control" autocomplete="off" placeholder="password key" type="password" formControlName="passwordKey"/>
+                      <div class="input-group ">
+                      <input class=" form-control" autocomplete="off" placeholder="password key" required [type]="fieldTextType ? 'text' : 'password'" formControlName="passwordKey"/>
+                        <div class="input-group-append ">
+                                 <span class="input-group-text" style="background-color: transparent;">
+                                    <i class="fa" style="padding-left: 8px" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                                 </span>
+                        </div>
+                    </div>
                     </div>
                   </div>
                 </div>

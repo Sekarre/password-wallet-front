@@ -10,8 +10,7 @@
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
                   <label> Login </label>
-                  <input class=" form-control" disabled placeholder="Password" type="text" value="{{user.login}}"
-                         formControlName="login"/>
+                  <input class=" form-control" disabled placeholder="Password" type="text" value="{{user.login}}" formControlName="login"/>
                 </div>
               </div>
             </div>
@@ -19,8 +18,14 @@
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
                   <label> Current Password </label>
-                  <input class=" form-control" placeholder="Password" type="password" value=""
-                         formControlName="currentPassword"/>
+                  <div class="input-group ">
+                  <input class=" form-control" placeholder="Password" [type]="fieldTextType ? 'text' : 'password'" value="" formControlName="currentPassword"/>
+                    <div class="input-group-append ">
+                       <span class="input-group-text" style="background-color: transparent;">
+                          <i class="fa" style="padding-left: 8px" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                       </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -28,8 +33,14 @@
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
                   <label> New Password </label>
-                  <input class=" form-control" placeholder="Password" type="password" value=""
-                         formControlName="newPassword"/>
+                  <div class="input-group ">
+                  <input class=" form-control" placeholder="Password" [type]="fieldTextType2 ? 'text' : 'password'" value="" formControlName="newPassword"/>
+                    <div class="input-group-append ">
+                       <span class="input-group-text" style="background-color: transparent;">
+                          <i class="fa" style="padding-left: 8px" [ngClass]="{'fa-eye-slash': !fieldTextType2,'fa-eye': fieldTextType2}" (click)="toggleFieldTextType2()"></i>
+                       </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

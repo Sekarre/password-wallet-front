@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth.service';
 import {PasswordType} from '../../domain/PasswordType';
 import {PasswordService} from '../../services/password.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +16,13 @@ export class RegisterComponent implements OnInit {
   loginFormGroup: FormGroup;
   passwordTypes: PasswordType[] = [];
   selected: string;
+  fieldTextType: boolean;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
               private passwordService: PasswordService,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -55,7 +58,7 @@ export class RegisterComponent implements OnInit {
           this.redirectToDashboard();
         },
         error: err => {
-          alert(`Invalid data given`);
+          this.alertService.error(`Login is taken or invalid data given`);
         }
       }
     );
@@ -63,5 +66,9 @@ export class RegisterComponent implements OnInit {
 
   private redirectToDashboard() {
     this.router.navigateByUrl('/dashboard');
+  }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

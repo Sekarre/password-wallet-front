@@ -12,6 +12,7 @@ import {AlertService} from '../../services/alert.service';
 export class LoginComponent implements OnInit {
 
   loginFormGroup: FormGroup;
+  fieldTextType: boolean;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -31,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // console.log(this.loginFormGroup.get('user')?.value);
     this.authService.login(this.loginFormGroup.get('user').get('login').value, this.loginFormGroup.get('user').get('password').value)
       .subscribe(
         response => {
@@ -46,5 +46,9 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }
