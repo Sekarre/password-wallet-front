@@ -3,6 +3,8 @@ import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
+import {Error} from '../../domain/Error';
+import {COMMON_ERROR_MESSAGE} from '../../domain/CommonMessages';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +41,10 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/dashboard');
         },
         error => {
-          this.alertService.error('Bad credentials');
+          const errorParsed = JSON.parse(JSON.stringify(error.error)) as Error;
+          const errorMessage: string = !errorParsed.message ? COMMON_ERROR_MESSAGE : errorParsed.message;
+
+          this.alertService.error(errorMessage);
         }
       );
   }

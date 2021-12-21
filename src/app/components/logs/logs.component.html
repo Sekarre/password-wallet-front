@@ -1,0 +1,27 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-12">
+      <div class=" card card-chart">
+        <table class="table">
+          <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Login date</th>
+            <th>Successful</th>
+            <th>Ip address</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let log of logInfo.userLoginEvents">
+            <td class="text-center"></td>
+            <td>{{log.loginDate}}</td>
+            <td>{{log.loginSuccessful}}</td>
+            <td>{{log.ipAddress}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

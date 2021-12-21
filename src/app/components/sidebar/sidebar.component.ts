@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 declare interface RouteInfo {
   path: string;
@@ -14,6 +14,20 @@ export const ROUTES: RouteInfo[] = [
     title: 'Passwords',
     rtlTitle: 'Passwords',
     icon: 'icon-chart-pie-36',
+    class: ''
+  },
+  {
+    path: '/logs',
+    title: 'Logs',
+    rtlTitle: 'Logs',
+    icon: 'icon-chart-pie-35',
+    class: ''
+  },
+  {
+    path: '/login-settings',
+    title: 'Login settings',
+    rtlTitle: 'Login settings',
+    icon: 'icon-chart-pie-34',
     class: ''
   }
 ];

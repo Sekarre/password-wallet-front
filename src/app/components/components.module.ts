@@ -13,11 +13,13 @@ import {PasswordAddComponent} from './password-add/password-add.component';
 import {KeySetComponent} from './key-set/key-set.component';
 import {PasswordEditComponent} from './password-edit/password-edit.component';
 import {AlertComponent} from './alert/alert.component';
+import {LogsComponent} from './logs/logs.component';
+import {LoginSettingsComponent} from './login-settings/login-settings.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent, PasswordAddComponent,
-    KeySetComponent, PasswordEditComponent, AlertComponent],
+    KeySetComponent, PasswordEditComponent, AlertComponent, LogsComponent, LoginSettingsComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent]
 })
 export class ComponentsModule {
