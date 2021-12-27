@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Password} from '../domain/Password';
 import {Observable} from 'rxjs';
 import {PasswordType} from '../domain/PasswordType';
+import {SharedPassword} from '../domain/SharedPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,18 @@ export class PasswordService {
   baseURL = 'http://localhost:8080/api/password-wallet';
   passwordTypesUrl = 'http://localhost:8080/api/password-wallet/password-types';
   passwordKeyUrl = 'http://localhost:8080/api/password-wallet/password-key-verification';
+  sharedPasswordUrl = 'http://localhost:8080/api/password-wallet/shared-passwords/shared-from';
+  basicSharePasswordUrl = 'http://localhost:8080/api/password-wallet/shared-passwords';
 
   constructor(private http: HttpClient) {
   }
 
   getPasswords(): Observable<Password[]> {
     return this.http.get<Password[]>(this.baseURL)
+  }
+
+  getSharedFromPasswords(): Observable<SharedPassword[]> {
+    return this.http.get<SharedPassword[]>(this.sharedPasswordUrl)
   }
 
   addPassword(password: Password): Observable<any> {
@@ -32,7 +39,6 @@ export class PasswordService {
     const body = JSON.stringify(password);
     const url = this.baseURL + '/' + password.id;
 
-    console.log(body)
     return this.http.put(url, body, {headers})
   }
 
@@ -46,6 +52,12 @@ export class PasswordService {
     return this.http.get<Password>(url);
   }
 
+  getSharedPassword(passwordId: number) {
+    const url = this.basicSharePasswordUrl + '/' + passwordId;
+
+    return this.http.get<Password>(url);
+  }
+
   deletePassword(passwordId: number) {
     const url = this.baseURL + '/' + passwordId;
 
@@ -55,5 +67,10 @@ export class PasswordService {
   checkIfKeyValid(key) {
     const headers = {'content-type': 'application/json'}
     return this.http.post(this.passwordKeyUrl, key, {headers});
+  }
+
+  sharePassword(email: string, passwordId: number) {
+    const url = this.basicSharePasswordUrl + '/' + passwordId + '?userEmail=' + email;
+    return this.http.post(url, null);
   }
 }

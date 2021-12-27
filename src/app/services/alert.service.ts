@@ -34,7 +34,6 @@ export class AlertService {
   }
 
   clear() {
-    // clear by calling subject.next() without parameters
     // @ts-ignore
     this.subject.next();
   }

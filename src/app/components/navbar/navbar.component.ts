@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../services/auth.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,6 +21,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public isCollapsed = true;
 
+  userEmail = '';
+
   closeResult: string;
 
   constructor(
@@ -27,7 +30,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService,
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -47,6 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.addEventListener('resize', this.updateColor);
+    this.userService.getUserData().subscribe(data => this.userEmail = data.email);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];

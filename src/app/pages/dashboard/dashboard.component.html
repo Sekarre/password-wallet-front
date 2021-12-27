@@ -1,6 +1,7 @@
 <div class=" content">
   <div class=" row">
     <div class=" col-12">
+      <app-alert></app-alert>
       <div class=" card card-chart">
         <div class=" card-header">
           <div class=" row">
@@ -11,73 +12,172 @@
             <div class=" col-sm-6">
             </div>
           </div>
+          <div class="d-flex card-description justify-content-center">
+            <div class="d-flex justify-content-center card-description">
+              <button class=" btn btn-fill btn-warn" *ngIf="passwordList.length != 0"
+                      (click)="changeMode()">{{editMode ? 'Switch to view mode' : 'Switch to edit mode'}}</button>
+            </div>
+          </div>
         </div>
         <div class=" card-body">
-          <div *ngFor="let password of passwordList"  class="card card-user col-12">
+          <div *ngFor="let password of passwordList" class="card card-user col-12">
             <div>
+
               <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
-                <label class=" btn btn-sm  btn-simple" (click)="showPassword(password.id)">
+                <button class=" btn btn-sm  btn-simple" (click)="openModal(password.id)">
                   <h5 class=" card-title">
-                    <i class=" tim-icons icon-support-17">  Show</i>
+                    <i class=" tim-icons icon-send"> Share</i>
                   </h5>
-                </label>
-                <label class="btn btn-sm btn-simple" [routerLink]="['/password-edit', password.id]" >
+                </button>
+                <button class=" btn btn-sm  btn-simple" (click)="showPassword(password.id)">
                   <h5 class=" card-title">
-                    <i class="tim-icons icon-pencil text-info-states">  Edit </i>
+                    <i class=" tim-icons icon-support-17"> Show</i>
                   </h5>
-                </label>
-                <label class="btn btn-sm  btn-simple" (click)="deletePassword(password.id)" >
+                </button>
+                <button class="btn btn-sm btn-simple" [routerLink]="['/password-edit', password.id]"
+                        [disabled]="!editMode">
                   <h5 class=" card-title">
-                    <i class=" tim-icons  icon-trash-simple">  Delete </i>
+                    <i class="tim-icons icon-pencil text-info-states"> Edit </i>
                   </h5>
-                </label>
+                </button>
+                <button class="btn btn-sm  btn-simple" (click)="deletePassword(password.id)" [disabled]="!editMode">
+                  <h5 class=" card-title">
+                    <i class=" tim-icons  icon-trash-simple"> Delete </i>
+                  </h5>
+                </button>
               </div>
             </div>
-            <div  class=" card-body">
+            <div class=" card-body">
               <p class=" card-text"></p>
               <div class=" author">
                 <div class=" block block-one"></div>
                 <div class=" block block-two"></div>
-                </div>
-                <h5 class="d-flex justify-content-center title">{{ password.title }}</h5>
-                <div class="d-flex justify-content-center row">
-                  <div class=" col-md-5 pr-md-1">
-                    <div class="form-group">
-                      <label> Login </label>
-                      <input
-                        class=" form-control"
-                        disabled=""
-                        placeholder="Login"
-                        type="text"
-                        value="{{ password.login }}"
-                      />
-                    </div>
-                  </div>
-                  <div class=" col-md-5 pr-md-1">
-                    <div class=" form-group">
-                      <label> Password </label>
-                      <input class=" form-control" disabled="" [(ngModel)]="password.password"/>
-                    </div>
+              </div>
+              <h5 class="d-flex justify-content-center title">{{ password.title }}</h5>
+              <div class="d-flex justify-content-center row">
+                <div class=" col-md-5 pr-md-1">
+                  <div class="form-group">
+                    <label> Login </label>
+                    <input
+                      class=" form-control"
+                      disabled=""
+                      placeholder="Login"
+                      type="text"
+                      value="{{ password.login }}"
+                    />
                   </div>
                 </div>
-                <div class="d-flex justify-content-center card-description">
-                  <p class=" category">
-                    Corresponding URL address:
-                    <a href="{{ password.webAddress }}">{{ password.webAddress }}</a>
-                  </p>
+                <div class=" col-md-5 pr-md-1">
+                  <div class=" form-group">
+                    <label> Password </label>
+                    <input class=" form-control" disabled="" [(ngModel)]="password.password"/>
+                  </div>
                 </div>
-                <div class="d-flex justify-content-center card-description">
-                  {{ password.description }}
-                </div>
+              </div>
+              <div class="d-flex justify-content-center card-description">
+                <p class=" category">
+                  Corresponding URL address:
+                  <a href="{{ password.webAddress }}">{{ password.webAddress }}</a>
+                </p>
+              </div>
+              <div class="d-flex justify-content-center card-description">
+                {{ password.description }}
               </div>
             </div>
           </div>
+        </div>
         <div class="d-flex justify-content-center card-description">
           <div class="d-flex justify-content-center card-description">
-            <button routerLink="/password-add" class=" btn btn-fill btn-warn" type="submit"> Add password </button>
+            <button routerLink="/password-add" class=" btn btn-fill btn-warn" type="submit"> Add password</button>
           </div>
         </div>
+      </div>
+      <div class=" card card-chart">
+      <!--Shared passwords -->
+        <div class=" card-header" *ngIf="sharedPasswordList.length != 0">
+          <div class=" row">
+            <div class=" col-sm-6 text-left">
+              <h2 class=" card-title">Passwords which was shared to me:</h2>
+            </div>
+            <div class=" col-sm-6">
+            </div>
+          </div>
+        </div>
+        <div class=" card-body" *ngIf="sharedPasswordList.length != 0">
+          <div *ngFor="let sharedPassword of sharedPasswordList" class="card card-user col-12">
+            <div>
+              <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                <button class=" btn btn-sm  btn-simple" (click)="showSharedPassword(sharedPassword.id)">
+                  <h5 class=" card-title">
+                    <i class=" tim-icons icon-support-17"> Show</i>
+                  </h5>
+                </button>
+              </div>
+            </div>
+            <div class=" card-body">
+              <p class=" card-text"></p>
+              <div class=" author">
+                <div class=" block block-one"></div>
+                <div class=" block block-two"></div>
+              </div>
+              <h5 class="d-flex justify-content-center title">{{ sharedPassword.title }}</h5>
+              <div class="d-flex justify-content-center row">
+                <div class=" col-md-5 pr-md-1">
+                  <div class="form-group">
+                    <label> Login </label>
+                    <input
+                      class=" form-control"
+                      disabled=""
+                      placeholder="Login"
+                      type="text"
+                      value="{{ sharedPassword.login }}"
+                    />
+                  </div>
+                </div>
+                <div class=" col-md-5 pr-md-1">
+                  <div class=" form-group">
+                    <label> Password </label>
+                    <input class=" form-control" disabled="" [(ngModel)]="sharedPassword.password"/>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center card-description">
+                <p class=" category">
+                  Corresponding URL address:
+                  <a href="{{ sharedPassword.webAddress }}">{{ sharedPassword.webAddress }}</a>
+                </p>
+              </div>
+              <div class="d-flex justify-content-center card-description">
+                {{ sharedPassword.description }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header  d-flex justify-content-center row">
+        <h4 class="modal-title">Insert email of user to share password</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form [formGroup]="modalPasswordGroup" (ngSubmit)="sharePassword()">
+      <div class="modal-body">
+        <div class="d-flex justify-content-center row">
+          <div class=" col-md-5 pr-md-1">
+            <div class="form-group">
+              <input class=" form-control" placeholder="User email" type="text" formControlName="email" style="color: #0a0c0d"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center row">
+        <button type="submit" class="btn btn-default" >Share</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

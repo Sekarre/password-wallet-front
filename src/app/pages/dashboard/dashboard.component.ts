@@ -4,34 +4,61 @@ import {PasswordService} from '../../services/password.service';
 import {ControlHelperService} from '../../services/control-helper.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
+import {SharedPassword} from '../../domain/SharedPassword';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+
   public data: any;
   public clicked = true;
+  public editMode = false;
+
+  display = 'none';
+  selectedModalPasswordId;
+
+  modalPasswordGroup: FormGroup;
 
   passwordList: Password[] = [];
+  sharedPasswordList: SharedPassword[] = [];
   fakePassword = '*******';
 
   constructor(private passwordService: PasswordService,
               private controlHelperService: ControlHelperService,
+              private formBuilder: FormBuilder,
+              private alertService: AlertService,
               private router: Router) {
   }
 
   ngOnInit() {
+    this.modalPasswordGroup = this.formBuilder.group({
+      email: new FormControl('',
+        [Validators.required, Validators.minLength(2)]),
+    });
+
     this.passwordService.getPasswords().subscribe(data2 => this.passwordList = data2);
+    this.passwordService.getSharedFromPasswords().subscribe(data2 => this.sharedPasswordList = data2);
+  }
+
+  changeMode() {
+    this.editMode = !this.editMode;
   }
 
   showPassword(passwordId: number) {
-    if (this.controlHelperService.isKeyPasswordSet()) {
-      this.passwordService.getPassword(passwordId).subscribe(data => {
-        const password = this.passwordList.find(p => p.id === data.id)
-        this.setFrontPassword(password, data);
-      });
-    }
+    this.passwordService.getPassword(passwordId).subscribe(data => {
+      const password = this.passwordList.find(p => p.id === data.id)
+      this.setFrontPassword(password, data);
+    });
+  }
+
+  showSharedPassword(passwordId: number) {
+    this.passwordService.getSharedPassword(passwordId).subscribe(data => {
+      const password = this.sharedPasswordList.find(p => p.id === data.id)
+      this.setFrontPassword(password, data);
+    });
   }
 
   deletePassword(passwordId: number) {
@@ -57,5 +84,24 @@ export class DashboardComponent implements OnInit {
     if (index !== -1) {
       this.passwordList.splice(index, 1);
     }
+  }
+
+  openModal(passwordId: number) {
+    this.display = 'block';
+    this.selectedModalPasswordId = passwordId;
+  }
+
+  onCloseHandled() {
+    this.display = 'none';
+    this.selectedModalPasswordId = null;
+  }
+
+  sharePassword() {
+    this.passwordService.sharePassword(this.modalPasswordGroup.get('email').value, this.selectedModalPasswordId).subscribe(() => {
+      this.onCloseHandled();
+      this.alertService.success('Password has been shared to: ' + this.modalPasswordGroup.get('email').value);
+    }, () => {
+      this.alertService.error('Error while sharing the password');
+    });
   }
 }

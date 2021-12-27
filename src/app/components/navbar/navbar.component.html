@@ -42,14 +42,21 @@
         </a>
         <ul class=" dropdown-navbar" ngbDropdownMenu>
           <li class=" nav-link">
-            <a class=" nav-item" href="javascript:void(0)" [routerLink]="['/user']" ngbDropdownItem>
+            <a class=" nav-item" href="javascript:void(0)" [routerLink]="['/user']" ngbDropdownItem style="color: #0a0c0d">
               Change password
             </a>
           </li>
           <li class=" dropdown-divider"></li>
           <li class=" nav-link">
-            <a class=" nav-item" href="javascript:void(0)" (click)="logOut()" ngbDropdownItem>
+            <a class=" nav-item" href="javascript:void(0)" (click)="logOut()" ngbDropdownItem style="color: #0a0c0d">
               Log out
+            </a>
+          </li>
+          <li class=" dropdown-divider"></li>
+          <li class=" dropdown-divider"></li>
+          <li class=" ">
+              <a class=" nav-item" [disabled]="true" ngbDropdownItem style="color: grey">
+              {{userEmail}}
             </a>
           </li>
         </ul>
