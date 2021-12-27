@@ -14,7 +14,8 @@ export class PasswordService {
   passwordTypesUrl = 'http://localhost:8080/api/password-wallet/password-types';
   passwordKeyUrl = 'http://localhost:8080/api/password-wallet/password-key-verification';
   sharedPasswordUrl = 'http://localhost:8080/api/password-wallet/shared-passwords/shared-from';
-  basicSharePasswordUrl = 'http://localhost:8080/api/password-wallet/shared-passwords';
+  sharedToPasswordUrl = 'http://localhost:8080/api/password-wallet/shared-passwords/shared-to';
+  baseSharePasswordUrl = 'http://localhost:8080/api/password-wallet/shared-passwords';
 
   constructor(private http: HttpClient) {
   }
@@ -25,6 +26,10 @@ export class PasswordService {
 
   getSharedFromPasswords(): Observable<SharedPassword[]> {
     return this.http.get<SharedPassword[]>(this.sharedPasswordUrl)
+  }
+
+  getSharedToPasswords(): Observable<SharedPassword[]> {
+    return this.http.get<SharedPassword[]>(this.sharedToPasswordUrl)
   }
 
   addPassword(password: Password): Observable<any> {
@@ -53,7 +58,7 @@ export class PasswordService {
   }
 
   getSharedPassword(passwordId: number) {
-    const url = this.basicSharePasswordUrl + '/' + passwordId;
+    const url = this.baseSharePasswordUrl + '/' + passwordId;
 
     return this.http.get<Password>(url);
   }
@@ -64,13 +69,19 @@ export class PasswordService {
     return this.http.delete(url);
   }
 
+  deletePasswordSharing(passwordId: number) {
+    const url = this.baseSharePasswordUrl + '/' + passwordId;
+
+    return this.http.delete(url);
+  }
+
   checkIfKeyValid(key) {
     const headers = {'content-type': 'application/json'}
     return this.http.post(this.passwordKeyUrl, key, {headers});
   }
 
   sharePassword(email: string, passwordId: number) {
-    const url = this.basicSharePasswordUrl + '/' + passwordId + '?userEmail=' + email;
+    const url = this.baseSharePasswordUrl + '/' + passwordId + '?userEmail=' + email;
     return this.http.post(url, null);
   }
 }

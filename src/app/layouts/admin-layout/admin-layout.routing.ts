@@ -10,9 +10,11 @@ import {KeySetComponent} from '../../components/key-set/key-set.component';
 import {PasswordEditComponent} from '../../components/password-edit/password-edit.component';
 import {LogsComponent} from '../../components/logs/logs.component';
 import {LoginSettingsComponent} from '../../components/login-settings/login-settings.component';
+import {PasswordShareSettingsComponent} from '../../components/password-share-settings/password-share-settings.component';
 
 export const AdminLayoutRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard,] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'passwords-share-settings', component: PasswordShareSettingsComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

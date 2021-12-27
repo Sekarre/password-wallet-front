@@ -17,6 +17,13 @@ export const ROUTES: RouteInfo[] = [
     class: ''
   },
   {
+    path: '/passwords-share-settings',
+    title: 'Share settings',
+    rtlTitle: 'Share settings',
+    icon: 'icon-chart-pie-36',
+    class: ''
+  },
+  {
     path: '/logs',
     title: 'Logs',
     rtlTitle: 'Logs',

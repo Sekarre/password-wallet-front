@@ -15,11 +15,12 @@ import {PasswordEditComponent} from './password-edit/password-edit.component';
 import {AlertComponent} from './alert/alert.component';
 import {LogsComponent} from './logs/logs.component';
 import {LoginSettingsComponent} from './login-settings/login-settings.component';
+import { PasswordShareSettingsComponent } from './password-share-settings/password-share-settings.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent, PasswordAddComponent,
-    KeySetComponent, PasswordEditComponent, AlertComponent, LogsComponent, LoginSettingsComponent],
+    KeySetComponent, PasswordEditComponent, AlertComponent, LogsComponent, LoginSettingsComponent, PasswordShareSettingsComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent]
 })
 export class ComponentsModule {
